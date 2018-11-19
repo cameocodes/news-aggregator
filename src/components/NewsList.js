@@ -5,7 +5,7 @@ import NewsStory from './NewsStory';
 class NewsList extends Component {
     render() {
         const stories = this.props.stories
-
+        
         return (
             <div className="news-list">
                 {stories.map((story, id) => {
