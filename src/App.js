@@ -1,113 +1,145 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import './App.css';
+// TODO: fix re-render on route hit
+// TODO: fix /reddit route not rendering properly
+// TODO: fetch stories from FCC Medium publication
+// TODO: create initial page where users can choose which sources to load
 
+import './App.css';
+import axios from 'axios';
+import React, { Component } from 'react';
+import { Preloader } from 'react-materialize';
 import {
-  BrowserRouter as Router,
   Route,
-  Link,
   Switch,
   BrowserRouter
 } from 'react-router-dom'
 
-
-// components
+// import components
 import Navigation from './components/Nagivation';
 import NewsList from './components/NewsList';
-
-function parseStory(story){
-    const { id, title, url} = story
-    return {
-      id,
-      title,
-      url
-    }
-}
 
 class App extends Component {
 
   state = {
-    stories: null
+    allStories: [],
+    yCom: null,
+    redditProg: null,
+    redditProgHum: null,
   }
 
+  fetchYCom = async () => {
+    function fetchStoryIDs(){
+      return axios.get('https://hacker-news.firebaseio.com/v0/topstories.json')
+    }
+    
+    function fetchStory(storyID){
+      return axios.get(`https://hacker-news.firebaseio.com/v0/item/${storyID}.json`)
+    }
 
-  
+    function parseStory(story){
+      const { id, title, url} = story
+      return {
+        id,
+        title,
+        url
+      }
+    }
 
-  async componentDidMount(){
-    try {
-      async function fetchStoryIDs(){
-        return await axios.get('https://hacker-news.firebaseio.com/v0/topstories.json')
-      }
-  
-      async function fetchStory(storyID){
-        return await axios.get(`https://hacker-news.firebaseio.com/v0/item/${storyID}.json`)
-      }
-  
-      const top500IDs = await fetchStoryIDs();
-      const storyIDs = top500IDs.data.slice(0,20)
-      Promise.all(storyIDs.map((story, index) => {
+    const top500IDs = await fetchStoryIDs();
+      const top20IDs = top500IDs.data.slice(0,20)
+      Promise.all(top20IDs.map((story, index) => {
         return fetchStory(story)
         .then(storyDetails => {
           return parseStory(storyDetails.data)
         })
       }))
       .then(stories => {
-        const allStories = stories
-  
+        const allStories = this.state.allStories
+        stories.map(story => {
+          allStories.push(story)
+        })
+        this.setState({
+          yCom: stories,
+          allStories
+        })
+      })
+      .catch(err => console.error(err))
+  }
+
+  fetchReddit = async () => {
+    function fetchProgramming(){
+      return axios.get('https://www.reddit.com/r/programming/hot.json?sort=new')
+    }
+
+    function fetchProgrammerHumor(){
+      return axios.get('https://www.reddit.com/r/ProgrammerHumor/hot.json?sort=new')
+    }
+
+    function reduceResult(result, allStories){
+      const allPosts = result.data.data.children
+      const postData = [];
+      allPosts.map(post => {
+        postData.push(post.data)
+        allStories.push(post.data)
+      })
+      return {postData, allStories}
+    }
+
+    axios.all([fetchProgramming(), fetchProgrammerHumor()])
+    .then(axios.spread((progPosts, progHumPosts) => {
+      const allStories = this.state.allStories
+      const redditProg = reduceResult(progPosts, allStories)
+      const redditProgHum = reduceResult(progHumPosts, allStories)
       this.setState({
-        stories: allStories
+        redditProg,
+        redditProgHum
       })
-      })
+
+    }))
+    .catch(err => console.error(err))
+  }
+
+  async componentDidMount(){
+    try {
+      this.fetchYCom();
+      this.fetchReddit();
     } catch (e) {
       return new Error('error')
     }
+  }
+
+  render(){
+    const yCom = this.state.yCom;
+    const redditProg = this.state.redditProg;
+    const redditProgHum = this.state.redditProgHum;
+    const allStories = this.state.allStories;
+
+    if(!yCom || !redditProg || !redditProgHum) {
+      return <div id="preload-text">
+          <h1>Fetching stories...</h1>
+          <Preloader size='big'/>
+        </div>
     }
-    
 
-
-
-  render() {
-    
-    if(!this.state.stories) {
-      return <h1>Loading stories...</h1> 
-    } 
-
-    const stories = this.state.stories
+    console.log(allStories)
 
     return (
       <div className="App">
-        {/* <BrowserRouter>
-        <div>
-          <Navigation routes={[
-            {
-              pathName: 'Home',
-              uri: '/',
-              state: this.state.stories
-            },{
-              pathName: 'Hacker News',
-              uri: '/hackernews',
-              state: this.state.stories
-            },{
-              pathName: 'Medium',
-              uri: '/hackernews',
-              state: this.state.stories
-            },{
-              pathName: 'Reddit',
-              uri: '/reddit',
-              state: this.state.stories
-            }
-          ]}/> 
-          <Switch>
-            <Route exact path="/" component={NewsList}/>
-            <Route path="/hackernews" component={NewsList}/>
-            <Route path="/medium" component={NewsList}/>
-            <Route path="/reddit" component={NewsList}/>
-          </Switch>
-          <Navigation />
+        <BrowserRouter>
+          <div>
+          <Navigation/>
+            <Switch>
+              <Route exact path="/" render={()=>{
+                return <NewsList stories={allStories}/>
+              }}/>
+              <Route path="/hackernews" render={()=>{
+                return <NewsList stories={yCom}/>
+              }}/>
+              <Route path="/reddit" render={()=>{
+                return <NewsList stories={redditProgHum}/>
+              }}/>
+            </Switch>
           </div>
-        </BrowserRouter> */}
-        <Navigation/>
-        <NewsList stories={stories}/>
+        </BrowserRouter>
       </div>
     );
   }
