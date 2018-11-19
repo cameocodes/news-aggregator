@@ -5,6 +5,10 @@ body {
   background-color: #eeeeee;
 }
 
+h6 {
+  font-size: 1.2em;
+}
+
 #preload-text {
   text-align: center;
   font-size: 2em;
@@ -14,8 +18,22 @@ nav .brand-logo {
   margin: 0 0 0 2vw;
 }
 
+.sources {
+  padding: 2vh 5vw;
+}
+
+/* .source-row {
+  display: flex;
+  flex-direction: column;
+} */
+
 @media only screen and (min-width: 600px) {
   .news-list {
+    width: 65w;
+    margin: 0 17.5vw;
+  }
+
+  .sources {
     width: 65w;
     margin: 0 17.5vw;
   }

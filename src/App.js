@@ -16,6 +16,7 @@ import {
 // import components
 import Navigation from './components/Nagivation';
 import NewsList from './components/NewsList';
+import Sources from './components/Sources';
 
 class App extends Component {
 
@@ -129,7 +130,7 @@ class App extends Component {
           <Navigation/>
             <Switch>
               <Route exact path="/" render={()=>{
-                return <NewsList stories={allStories}/>
+                return <Sources/>
               }}/>
               <Route path="/hackernews" render={()=>{
                 return <NewsList stories={yCom}/>
