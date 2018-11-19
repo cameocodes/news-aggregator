@@ -3,7 +3,6 @@ import { Preloader } from 'react-materialize';
 import axios from 'axios';
 
 import NewsList from './NewsList';
-// import FetchHackerNews from './Fetch/FetchHackerNews';
 
 class Main extends Component {
     state = {
@@ -149,7 +148,6 @@ class Main extends Component {
       fetchRedditJS = async () => {
         axios.get('https://www.reddit.com/r/Javascript/hot.json?sort=new')
         .then(results => {
-            console.log(results)
             const allStories = this.state.allStories
             const redditJS = reduceResult(results, allStories)
             this.setState({
@@ -176,7 +174,6 @@ class Main extends Component {
       fetchRedditTech = async () => {
         axios.get('https://www.reddit.com/r/Technology/hot.json?sort=new')
         .then(results => {
-            console.log(results)
             const allStories = this.state.allStories
             const redditTech = reduceResult(results, allStories)
             this.setState({
@@ -348,14 +345,13 @@ class Main extends Component {
     render() {
         const allStories = this.state.allStories;
 
-        if(allStories.length == 0){
+        if(allStories.length === 0){
         return <div id="preload-text">
             <h3>Fetching stories...</h3>
             <Preloader size='big'/>
             </div>
         }
     
-        console.log(allStories)
         return (
             <div className="main">
                 <NewsList stories={allStories}/>

@@ -22,10 +22,18 @@ nav .brand-logo {
   padding: 2vh 5vw;
 }
 
-/* .source-row {
-  display: flex;
-  flex-direction: column;
-} */
+.nav {
+  background-color: #212121;
+  width: 100%;
+  padding: 1vh 0;
+  font-size: 2em;
+  text-align: center;
+  text-decoration: none;
+}
+
+.nav a{
+  color: white;
+}
 
 @media only screen and (min-width: 600px) {
   .news-list {

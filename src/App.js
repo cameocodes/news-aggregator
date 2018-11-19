@@ -1,7 +1,3 @@
-// TODO: fix /reddit route not rendering properly
-// TODO: fetch stories from FCC Medium publication
-// TODO: create initial page where users can choose which sources to load
-
 import './App.css';
 import React, { Component } from 'react';
 
