@@ -17,6 +17,7 @@ class Sources extends Component {
         const redditProg = form.redditProg.checked;
         const redditProgHum = form.redditProgHum.checked;
         const redditJS = form.redditJS.checked;
+        const redditTech = form.redditTech.checked;
         const freecodecamp = form.freecodecamp.checked;
         const hackernoon = form.hackernoon.checked;
         const codeburst = form.codeburst.checked;
@@ -25,6 +26,7 @@ class Sources extends Component {
             redditProg: redditProg,
             redditProgHum: redditProgHum,
             redditJS: redditJS,
+            redditTech: redditTech,
             freeCodeCamp: freecodecamp,
             hackerNoon: hackernoon,
             codeBurst: codeburst
@@ -55,8 +57,9 @@ class Sources extends Component {
                 <h6>Reddit</h6>
                 <Row>
                     <Col s={12}><Input name='redditProg' type='checkbox' label='r/Programming' className='filled-in'/></Col>
+                    <Col s={12}><Input name='redditTech' type='checkbox' label='r/Technology' className='filled-in'/></Col>
                     <Col s={12}><Input name='redditProgHum' type='checkbox' label='r/ProgrammingHumor' className='filled-in'/></Col>
-                    <Col s={12}><Input name='redditJS' type='checkbox' label='r/Javascript' className='filled-in' disabled='disabled'/></Col>
+                    <Col s={12}><Input name='redditJS' type='checkbox' label='r/Javascript' className='filled-in'/></Col>
                 </Row>
                 <h6>Medium Publications</h6>
                 <Row>
