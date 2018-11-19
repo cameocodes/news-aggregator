@@ -199,6 +199,63 @@ class Main extends Component {
           return {postData, allStories}
         }
       }
+
+      fetchMediumFCC = async () => {
+          axios.get('https://api.rss2json.com/v1/api.json?rss_url=https://medium.freecodecamp.org/feed?truncated=true')
+          .then(results => {
+            const stories = results.data.items
+            const allStories = this.state.allStories
+            stories.map(story => {
+              allStories.push(story)
+            })
+            this.setState({
+              sources: {
+                  freeCodeCamp: {
+                  stories
+              }},
+              allStories
+          })
+        })
+          .catch(err => console.error(err))
+      }
+
+      fetchMediumHackerNoon = async () => {
+        axios.get('https://api.rss2json.com/v1/api.json?rss_url=https://hackernoon.com/feed?truncated=true')
+        .then(results => {
+          const stories = results.data.items
+          const allStories = this.state.allStories
+          stories.map(story => {
+            allStories.push(story)
+          })
+          this.setState({
+            sources: {
+                hackerNoon: {
+                stories
+            }},
+            allStories
+        })
+      })
+        .catch(err => console.error(err))
+    }
+
+    fetchMediumCodeBurst = async () => {
+        axios.get('https://api.rss2json.com/v1/api.json?rss_url=https://codeburst.io/feed?truncated=true')
+        .then(results => {
+          const stories = results.data.items
+          const allStories = this.state.allStories
+          stories.map(story => {
+            allStories.push(story)
+          })
+          this.setState({
+            sources: {
+                codeBurst: {
+                stories
+            }},
+            allStories
+        })
+      })
+        .catch(err => console.error(err))
+    }
     
     async componentDidMount(){
         const { hackerNews, redditProg, redditProgHum, redditJS, redditTech, freeCodeCamp, hackerNoon, codeBurst } = this.props.location.state.sources
@@ -252,6 +309,39 @@ class Main extends Component {
                 }
             })
             this.fetchRedditTech();
+        }
+
+        if(freeCodeCamp){
+            this.setState({
+                sources: {
+                    freeCodeCamp: {
+                        source: true
+                    }
+                }
+            })
+            this.fetchMediumFCC();
+        }
+
+        if(hackerNoon){
+            this.setState({
+                sources: {
+                    hackerNoon: {
+                        source: true
+                    }
+                }
+            })
+            this.fetchMediumHackerNoon();
+        }
+
+        if(codeBurst){
+            this.setState({
+                sources: {
+                    codeBurst: {
+                        source: true
+                    }
+                }
+            })
+            this.fetchMediumCodeBurst();
         }
     }
 

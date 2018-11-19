@@ -8,8 +8,8 @@ class NewsList extends Component {
 
         return (
             <div className="news-list">
-                {stories.map(story => {
-                    return <NewsStory key={story.id} story={story}/>
+                {stories.map((story, id) => {
+                    return <NewsStory key={id} story={story}/>
                 })}
             </div>
         )

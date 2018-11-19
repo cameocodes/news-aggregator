@@ -63,9 +63,9 @@ class Sources extends Component {
                 </Row>
                 <h6>Medium Publications</h6>
                 <Row>
-                    <Col s={12}><Input name='freecodecamp' type='checkbox' label='FreeCodeCamp.org' className='filled-in' disabled='disabled'/></Col>
-                    <Col s={12}><Input name='hackernoon' type='checkbox' label='Hacker Noon' className='filled-in' disabled='disabled'/></Col>
-                    <Col s={12}><Input name='codeburst' type='checkbox' label='codeburst' className='filled-in' disabled='disabled'/></Col>
+                    <Col s={12}><Input name='freecodecamp' type='checkbox' label='FreeCodeCamp.org' className='filled-in'/></Col>
+                    <Col s={12}><Input name='hackernoon' type='checkbox' label='Hacker Noon' className='filled-in'/></Col>
+                    <Col s={12}><Input name='codeburst' type='checkbox' label='codeburst' className='filled-in'/></Col>
                 </Row>
 
                 <Button waves='light' type="submit">Load Stories</Button>  
