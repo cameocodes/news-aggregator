@@ -4,7 +4,6 @@
 
 import './App.css';
 import React, { Component } from 'react';
-import {Navbar} from 'react-materialize';
 
 import {
   Route,
@@ -17,7 +16,6 @@ import Navigation from './components/Navigation';
 
 class App extends Component {
   render(){
-
     return (
       <div className="App">
       <BrowserRouter>
@@ -28,12 +26,6 @@ class App extends Component {
                 return <Sources/>
             }}/>
             <Route path="/stories" component={Main}/>
-            {/* <Route path="/hackernews" render={()=>{
-                return <NewsList stories={yCom}/>
-            }}/>
-            <Route path="/reddit" render={()=>{
-                return <NewsList stories={redditProgHum}/>
-            }}/> */}
             </Switch>
         </div>
       </BrowserRouter>

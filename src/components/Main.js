@@ -7,12 +7,39 @@ import NewsList from './NewsList';
 class Main extends Component {
     state = {
         allStories: [],
-        yCom: null,
-        redditProg: null,
-        redditProgHum: null,
+        sources: {
+            hackerNews: {
+                source: false,
+                stories: null
+            },
+            redditProg: {
+                source: false,
+                stories: []
+            },
+            redditProgHum: {
+                source: false,
+                stories: []
+            },
+            redditJS: {
+                source: false,
+                stories: []
+            },
+            freeCodeCamp: {
+                source: false,
+                stories: []
+            },
+            hackerNoon: {
+                source: false,
+                stories: []
+            },
+            codeBurst: {
+                source: false,
+                stories: []
+            }
+        }
       }
     
-      fetchYCom = async () => {
+      fetchHackerNews = async () => {
         function fetchStoryIDs(){
           return axios.get('https://hacker-news.firebaseio.com/v0/topstories.json')
         }
@@ -44,18 +71,47 @@ class Main extends Component {
               allStories.push(story)
             })
             this.setState({
-              yCom: stories,
+              sources: {
+                  hackerNews: {
+                  stories
+              }},
               allStories
             })
           })
           .catch(err => console.error(err))
       }
     
-      fetchReddit = async () => {
+      fetchRedditProg = async () => {
         function fetchProgramming(){
           return axios.get('https://www.reddit.com/r/programming/hot.json?sort=new')
         }
     
+        function reduceResult(result, allStories){
+          const allPosts = result.data.data.children
+          const postData = [];
+          allPosts.map(post => {
+            postData.push(post.data)
+            allStories.push(post.data)
+          })
+          return {postData, allStories}
+        }
+    
+        axios.all([fetchProgramming()])
+        .then(axios.spread((progPosts) => {
+          const allStories = this.state.allStories
+          const redditProg = reduceResult(progPosts, allStories)
+          this.setState({
+              sources: {
+                redditProg: {
+                    stories: redditProg
+                },
+              }
+          })
+        }))
+        .catch(err => console.error(err))
+      }
+
+      fetchRedditProgHum = async () => {
         function fetchProgrammerHumor(){
           return axios.get('https://www.reddit.com/r/ProgrammerHumor/hot.json?sort=new')
         }
@@ -70,55 +126,69 @@ class Main extends Component {
           return {postData, allStories}
         }
     
-        axios.all([fetchProgramming(), fetchProgrammerHumor()])
-        .then(axios.spread((progPosts, progHumPosts) => {
+        axios.all([fetchProgrammerHumor()])
+        .then(axios.spread((progHumPosts) => {
           const allStories = this.state.allStories
-          const redditProg = reduceResult(progPosts, allStories)
           const redditProgHum = reduceResult(progHumPosts, allStories)
           this.setState({
-            redditProg,
-            redditProgHum
+              sources: {
+                redditProgHum: {
+                    stories: redditProgHum
+                }
+              }
           })
-    
         }))
         .catch(err => console.error(err))
       }
     
-      async componentDidMount(){
+    async componentDidMount(){
         const { hackerNews, redditProg, redditProgHum, redditJS, freeCodeCamp, hackerNoon, codeBurst } = this.props.location.state.sources
         if(hackerNews){
-            try {
-          this.fetchYCom();
-            } catch (e) {
-                return new Error('error')
-            }
+            this.setState({
+                sources: {
+                    hackerNews: {
+                        source: true
+                    }
+                }
+            })
+            this.fetchHackerNews();
         }
         if(redditProg){
-            try {
-                this.fetchReddit();
-            } catch (e) {
-                return new Error('error')
-            }
+            this.setState({
+                sources: {
+                    redditProg: {
+                        source: true
+                    }
+                }
+            })
+            this.fetchRedditProg();
         }
-      }
+        if(redditProgHum){
+            this.setState({
+                sources: {
+                    redditProgHum: {
+                        source: true
+                    }
+                }
+            })
+            this.fetchRedditProgHum();
+        }
+    }
 
     render() {
-        const yCom = this.state.yCom;
-        // const redditProg = this.state.redditProg;
-        // const redditProgHum = this.state.redditProgHum;
-        // const allStories = this.state.allStories;
+        const allStories = this.state.allStories;
 
-        if(!yCom){ // || !redditProg || !redditProgHum) {
+        if(allStories.length == 0){
         return <div id="preload-text">
-            <h1>Fetching stories...</h1>
+            <h3>Fetching stories...</h3>
             <Preloader size='big'/>
             </div>
         }
     
-
+        console.log(allStories)
         return (
             <div className="main">
-                <NewsList stories={yCom}/>
+                <NewsList stories={allStories}/>
             </div>
         )
     }
