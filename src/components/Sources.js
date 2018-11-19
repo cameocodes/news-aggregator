@@ -1,27 +1,18 @@
 import React, {Component} from 'react';
 import {Row, Input, Col, Button} from 'react-materialize';
+import {Redirect} from 'react-router-dom';
 
 
 class Sources extends Component {
 
     state = {
         sources: {
-            hackernews: false,
-            redditProg: false,
-            redditProgHum: false,
-            redditJS: false,
-            freecodecamp: false,
-            hackernoon: false,
-            codeburst: false
-        },
-        redirect: false,
-        hackernews: false
+        }
     }
 
     submitSources = (e) => {
         e.preventDefault();
         const form = e.target.elements;
-        console.log(form)
         const hackernews = form.hackernews.checked;
         const redditProg = form.redditProg.checked;
         const redditProgHum = form.redditProgHum.checked;
@@ -29,21 +20,30 @@ class Sources extends Component {
         const freecodecamp = form.freecodecamp.checked;
         const hackernoon = form.hackernoon.checked;
         const codeburst = form.codeburst.checked;
-        console.log(hackernews, redditProg, redditProgHum, redditJS, freecodecamp, hackernoon, codeburst)
-        this.setState={
-            hackernews: hackernews,
-            // redirect: true
+        const sources = {
+            hackerNews: hackernews,
+            redditProg: redditProg,
+            redditProgHum: redditProgHum,
+            redditJS: redditJS,
+            freeCodeCamp: freecodecamp,
+            hackerNoon: hackernoon,
+            codeBurst: codeburst
         }
+        this.setState({
+            sources,
+            redirect: true
+        })
 
     }
 
     render() {
-    //     if(this.state.redirect) return <Redirect
-    //     to={{
-    //       pathname: "/",
-    //       state: { sources }
-    //     }}
-    //   />
+        const sources = this.state.sources;
+        if(this.state.redirect) return <Redirect
+        to={{
+          pathname: "/stories",
+          state: { sources }
+        }}
+      />
         return (
             <div className="sources">
                 <h5>Load stories from</h5><br/>

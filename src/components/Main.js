@@ -1,16 +1,8 @@
 import React, {Component} from 'react';
 import { Preloader } from 'react-materialize';
 import axios from 'axios';
-import {
-    Route,
-    Switch,
-    BrowserRouter
-  } from 'react-router-dom'
 
-// import components
-import Navigation from './components/Nagivation';
-import NewsList from './components/NewsList';
-
+import NewsList from './NewsList';
 
 class Main extends Component {
     state = {
@@ -93,50 +85,40 @@ class Main extends Component {
       }
     
       async componentDidMount(){
-        try {
+        const { hackerNews, redditProg, redditProgHum, redditJS, freeCodeCamp, hackerNoon, codeBurst } = this.props.location.state.sources
+        if(hackerNews){
+            try {
           this.fetchYCom();
-          this.fetchReddit();
-        } catch (e) {
-          return new Error('error')
+            } catch (e) {
+                return new Error('error')
+            }
+        }
+        if(redditProg){
+            try {
+                this.fetchReddit();
+            } catch (e) {
+                return new Error('error')
+            }
         }
       }
 
     render() {
         const yCom = this.state.yCom;
-        const redditProg = this.state.redditProg;
-        const redditProgHum = this.state.redditProgHum;
-        const allStories = this.state.allStories;
+        // const redditProg = this.state.redditProg;
+        // const redditProgHum = this.state.redditProgHum;
+        // const allStories = this.state.allStories;
 
-        if(!yCom || !redditProg || !redditProgHum) {
+        if(!yCom){ // || !redditProg || !redditProgHum) {
         return <div id="preload-text">
             <h1>Fetching stories...</h1>
             <Preloader size='big'/>
             </div>
         }
-
-    console.log(allStories)
+    
 
         return (
             <div className="main">
-                <BrowserRouter>
-                    <div>
-                    <Navigation/>
-                        <Switch>
-                        <Route exact path="/" render={()=>{
-                            return <Sources/>
-                        }}/>
-                        <Route path="/main" render={()=>{
-                            return this
-                        }}/>
-                        <Route path="/hackernews" render={()=>{
-                            return <NewsList stories={yCom}/>
-                        }}/>
-                        <Route path="/reddit" render={()=>{
-                            return <NewsList stories={redditProgHum}/>
-                        }}/>
-                        </Switch>
-                    </div>
-                </BrowserRouter>
+                <NewsList stories={yCom}/>
             </div>
         )
     }
