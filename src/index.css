@@ -1,3 +1,15 @@
+/* Bootstrap css */
+@import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css";
+
+/* Propeller typography */
+@import "http://propeller.in/components/typography/css/typography.css";
+
+/* Propeller buttons */
+@import "http://propeller.in/components/button/css/button.css";
+
+/* Propeller card css */
+@import "http://propeller.in/components/card/css/card.css";
+
 body {
   margin: 0;
   padding: 0;
@@ -28,11 +40,15 @@ nav .brand-logo {
   padding: 1vh 0;
   font-size: 2em;
   text-align: center;
-  text-decoration: none;
 }
 
 .nav a{
   color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
 }
 
 @media only screen and (min-width: 600px) {

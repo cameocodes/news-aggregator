@@ -72,6 +72,7 @@ class Main extends Component {
           .then(stories => {
             const allStories = this.state.allStories
             stories.map(story => {
+                story.source = "Hacker News"
               allStories.push(story)
             })
             this.setState({
@@ -94,6 +95,7 @@ class Main extends Component {
           const allPosts = result.data.data.children
           const postData = [];
           allPosts.map(post => {
+            post.data.source = "r/Programming"
             postData.push(post.data)
             allStories.push(post.data)
           })
@@ -124,6 +126,7 @@ class Main extends Component {
           const allPosts = result.data.data.children
           const postData = [];
           allPosts.map(post => {
+            post.data.source = "r/ProgrammerHumor"
             postData.push(post.data)
             allStories.push(post.data)
           })
@@ -164,6 +167,7 @@ class Main extends Component {
           const allPosts = result.data.data.children
           const postData = [];
           allPosts.map(post => {
+            post.data.source = "r/Javascript"
             postData.push(post.data)
             allStories.push(post.data)
           })
@@ -189,7 +193,8 @@ class Main extends Component {
         function reduceResult(result, allStories){
           const allPosts = result.data.data.children
           const postData = [];
-          allPosts.map(post => {
+            allPosts.map(post => {
+            post.data.source = "r/Technology"
             postData.push(post.data)
             allStories.push(post.data)
           })
@@ -203,7 +208,8 @@ class Main extends Component {
             const stories = results.data.items
             const allStories = this.state.allStories
             stories.map(story => {
-              allStories.push(story)
+                story.source = "FreeCodeCamp.org"
+                allStories.push(story)
             })
             this.setState({
               sources: {
@@ -222,6 +228,7 @@ class Main extends Component {
           const stories = results.data.items
           const allStories = this.state.allStories
           stories.map(story => {
+            story.source = "HackerNoon"
             allStories.push(story)
           })
           this.setState({
@@ -241,6 +248,7 @@ class Main extends Component {
           const stories = results.data.items
           const allStories = this.state.allStories
           stories.map(story => {
+            story.source = "codeburst.io"
             allStories.push(story)
           })
           this.setState({

@@ -48,7 +48,7 @@ class Sources extends Component {
       />
         return (
             <div className="sources">
-                <h5>Load stories from</h5><br/>
+                <h2>Load stories from</h2><br/>
                 <h6>HackerNews</h6>
                 <form onSubmit={this.submitSources}>
                   <Row className="source-row">
