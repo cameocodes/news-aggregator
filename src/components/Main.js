@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { Preloader } from 'react-materialize';
 import axios from 'axios';
-
 import NewsList from './NewsList';
 
 class Main extends Component {
@@ -138,10 +137,6 @@ class Main extends Component {
                 allStories.push(story)
             })
             this.setState({
-              sources: {
-                  freeCodeCamp: {
-                  stories
-              }},
               allStories
           })
         })
@@ -158,10 +153,6 @@ class Main extends Component {
             allStories.push(story)
           })
           this.setState({
-            sources: {
-                hackerNoon: {
-                stories
-            }},
             allStories
         })
       })
@@ -178,10 +169,6 @@ class Main extends Component {
             allStories.push(story)
           })
           this.setState({
-            sources: {
-                codeBurst: {
-                stories
-            }},
             allStories
         })
       })
@@ -199,8 +186,6 @@ class Main extends Component {
 
     render() {
         const allStories = this.state.allStories;
-        console.log(allStories)
-
         if(allStories.length === 0){
         return <div id="preload-text">
             <h3>Fetching stories...</h3>
