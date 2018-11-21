@@ -10,7 +10,7 @@ class NewsStory extends Component {
                     <a href={story.url || story.link} className="card-link">
                     <div className="pmd-card-title">
                         <div className="media-body media-middle">
-                            <h6 className="pmd-card-title-text">{story.title}</h6>
+                            <div className="pmd-card-title-text card-title">{story.title}</div>
                             <span className="pmd-card-subtitle-text">{story.source}</span>
                         </div>
                     </div>

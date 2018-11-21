@@ -10,6 +10,8 @@
 /* Propeller card css */
 @import "//propeller.in/components/card/css/card.css";
 
+@import "//propeller.in/components/checkbox/css/checkbox.css";
+
 body {
   margin: 0;
   padding: 0;
@@ -19,6 +21,7 @@ body {
 
 h6 {
   font-size: 1.2em;
+  font-weight: 600;
 }
 
 #preload-text {
@@ -49,6 +52,34 @@ nav .brand-logo {
 
 a:hover {
   text-decoration: none;
+}
+
+label {
+  color: #000;
+  font-weight: 400;
+}
+
+.card-title {
+  font-size: 1.2em;
+  font-weight: 400;
+}
+
+.pmd-card {
+  margin-bottom: 20px;
+}
+
+.sources {
+  background-color: #FFF;
+  height: 90vh;
+}
+
+.source-list {
+  padding: 1vh 0 0 2vw;
+}
+
+.checkbox-orange[type="checkbox"].filled-in:checked + label:after{
+  border: 2px solid #ff7043;
+  background-color: #ff7043;
 }
 
 @media only screen and (min-width: 600px) {

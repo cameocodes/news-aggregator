@@ -31,10 +31,15 @@ class Sources extends Component {
             hackerNoon: hackernoon,
             codeBurst: codeburst
         }
-        this.setState({
-            sources,
-            redirect: true
-        })
+        const selected = hackernews || redditProg || redditProgHum || redditJS || redditTech || freecodecamp || hackernoon || codeburst
+        console.log(selected)
+        if(!selected){
+            alert("Please select at least one source.");
+        } else this.setState({
+                sources,
+                redirect: true
+            })
+        
 
     }
 
@@ -48,27 +53,28 @@ class Sources extends Component {
       />
         return (
             <div className="sources">
-                <h2>Load stories from</h2><br/>
-                <h6>HackerNews</h6>
+                <h6>Load stories from</h6>
                 <form onSubmit={this.submitSources}>
-                  <Row className="source-row">
-                    <Col s={12}><Input name='hackernews' type='checkbox' label='HackerNews' className='filled-in' /></Col>
-                </Row>
-                <h6>Reddit</h6>
-                <Row>
-                    <Col s={12}><Input name='redditProg' type='checkbox' label='r/Programming' className='filled-in'/></Col>
-                    <Col s={12}><Input name='redditTech' type='checkbox' label='r/Technology' className='filled-in'/></Col>
-                    <Col s={12}><Input name='redditProgHum' type='checkbox' label='r/ProgrammingHumor' className='filled-in'/></Col>
-                    <Col s={12}><Input name='redditJS' type='checkbox' label='r/Javascript' className='filled-in'/></Col>
-                </Row>
-                <h6>Medium Publications</h6>
-                <Row>
-                    <Col s={12}><Input name='freecodecamp' type='checkbox' label='FreeCodeCamp.org' className='filled-in'/></Col>
-                    <Col s={12}><Input name='hackernoon' type='checkbox' label='Hacker Noon' className='filled-in'/></Col>
-                    <Col s={12}><Input name='codeburst' type='checkbox' label='codeburst' className='filled-in'/></Col>
-                </Row>
-
-                <Button waves='light' type="submit">Load Stories</Button>  
+                    <div className="source-list">
+                        <h6>HackerNews</h6>
+                        <Row className="source-row">
+                            <Col s={12}><Input name='hackernews' type='checkbox' label='HackerNews' className='filled-in checkbox-orange'/></Col>
+                        </Row>
+                        <h6>Reddit</h6>
+                        <Row>
+                            <Col s={12}><Input name='redditProg' type='checkbox' label='r/Programming' className='filled-in checkbox-orange'/></Col>
+                            <Col s={12}><Input name='redditTech' type='checkbox' label='r/Technology' className='filled-in checkbox-orange'/></Col>
+                            <Col s={12}><Input name='redditProgHum' type='checkbox' label='r/ProgrammingHumor' className='filled-in checkbox-orange'/></Col>
+                            <Col s={12}><Input name='redditJS' type='checkbox' label='r/Javascript' className='filled-in checkbox-orange'/></Col>
+                        </Row>
+                        <h6>Medium Publications</h6>
+                        <Row>
+                            <Col s={12}><Input name='freecodecamp' type='checkbox' label='FreeCodeCamp.org' className='filled-in checkbox-orange'/></Col>
+                            <Col s={12}><Input name='hackernoon' type='checkbox' label='Hacker Noon' className='filled-in checkbox-orange'/></Col>
+                            <Col s={12}><Input name='codeburst' type='checkbox' label='codeburst' className='filled-in checkbox-orange'/></Col>
+                        </Row>
+                    </div>
+                    <Button waves='light' type="submit" className="deep-orange lighten-1">Load Stories</Button>  
                 </form>
                 
             </div>
