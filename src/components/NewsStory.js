@@ -1,23 +1,19 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 
-class NewsStory extends Component {
-    render() {
-        const story = this.props.story
+export default function NewsStory(props){
+    const story = props.story
 
-        return (
-                <div className="pmd-card pmd-card-default pmd-z-depth">
-                    <a href={story.url || story.link} className="card-link">
-                    <div className="pmd-card-title">
-                        <div className="media-body media-middle">
-                            <div className="pmd-card-title-text card-title">{story.title}</div>
-                            <span className="pmd-card-subtitle-text">{story.source}</span>
-                        </div>
+    return (
+            <div className="pmd-card pmd-card-default pmd-z-depth">
+                <a href={story.url || story.link} className="card-link">
+                <div className="pmd-card-title">
+                    <div className="media-body media-middle">
+                        <div className="pmd-card-title-text card-title">{story.title}</div>
+                        <span className="pmd-card-subtitle-text">{story.source}</span>
                     </div>
-                    </a>
                 </div>
-        )
-    }
-  }
-
-export default NewsStory;
+                </a>
+            </div>
+    )
+}
