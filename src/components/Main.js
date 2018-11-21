@@ -12,6 +12,10 @@ class Main extends Component {
                 source: false,
                 stories: null
             },
+            techCrunch: {
+                source: false,
+                stories: null
+            },
             redditProg: {
                 source: false,
                 stories: []
@@ -85,6 +89,26 @@ class Main extends Component {
           })
           .catch(err => console.error(err))
       }
+
+      fetchTechCrunch = async () => {
+        axios.get('https://api.rss2json.com/v1/api.json?rss_url=http://feeds.feedburner.com/TechCrunch/')
+        .then(results => {
+          const stories = results.data.items
+          const allStories = this.state.allStories
+          stories.map(story => {
+            story.source = "TechCrunch"
+            allStories.push(story)
+          })
+          this.setState({
+            sources: {
+                techCrunch: {
+                stories
+            }},
+            allStories
+        })
+      })
+        .catch(err => console.error(err))
+    }
     
       fetchRedditProg = async () => {
         function fetchProgramming(){
@@ -263,7 +287,7 @@ class Main extends Component {
     }
     
     async componentDidMount(){
-        const { hackerNews, redditProg, redditProgHum, redditJS, redditTech, freeCodeCamp, hackerNoon, codeBurst } = this.props.location.state.sources
+        const { hackerNews, techCrunch, redditProg, redditProgHum, redditJS, redditTech, freeCodeCamp, hackerNoon, codeBurst } = this.props.location.state.sources
         if(hackerNews){
             this.setState({
                 sources: {
@@ -273,6 +297,16 @@ class Main extends Component {
                 }
             })
             this.fetchHackerNews();
+        }
+        if(techCrunch){
+            this.setState({
+                sources: {
+                    techCrunch: {
+                        source: true
+                    }
+                }
+            })
+            this.fetchTechCrunch();
         }
         if(redditProg){
             this.setState({

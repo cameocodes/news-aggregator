@@ -14,6 +14,7 @@ class Sources extends Component {
         e.preventDefault();
         const form = e.target.elements;
         const hackernews = form.hackernews.checked;
+        const techCrunch = form.techCrunch.checked;
         const redditProg = form.redditProg.checked;
         const redditProgHum = form.redditProgHum.checked;
         const redditJS = form.redditJS.checked;
@@ -23,6 +24,7 @@ class Sources extends Component {
         const codeburst = form.codeburst.checked;
         const sources = {
             hackerNews: hackernews,
+            techCrunch: techCrunch,
             redditProg: redditProg,
             redditProgHum: redditProgHum,
             redditJS: redditJS,
@@ -31,8 +33,7 @@ class Sources extends Component {
             hackerNoon: hackernoon,
             codeBurst: codeburst
         }
-        const selected = hackernews || redditProg || redditProgHum || redditJS || redditTech || freecodecamp || hackernoon || codeburst
-        console.log(selected)
+        const selected = hackernews || techCrunch || redditProg || redditProgHum || redditJS || redditTech || freecodecamp || hackernoon || codeburst
         if(!selected){
             alert("Please select at least one source.");
         } else this.setState({
@@ -60,18 +61,22 @@ class Sources extends Component {
                         <Row className="source-row">
                             <Col s={12}><Input name='hackernews' type='checkbox' label='HackerNews' className='filled-in checkbox-orange'/></Col>
                         </Row>
+                        <h6>TechCrunch</h6>
+                        <Row className="source-row">
+                            <Col s={12}><Input name='techCrunch' type='checkbox' label='TechCrunch' className='filled-in checkbox-orange'/></Col>
+                        </Row>
+                        <h6>Medium Publications</h6>
+                        <Row>
+                            <Col s={12}><Input name='freecodecamp' type='checkbox' label='FreeCodeCamp.org' className='filled-in checkbox-orange'/></Col>
+                            <Col s={12}><Input name='hackernoon' type='checkbox' label='Hacker Noon' className='filled-in checkbox-orange'/></Col>
+                            <Col s={12}><Input name='codeburst' type='checkbox' label='codeburst.io' className='filled-in checkbox-orange'/></Col>
+                        </Row>
                         <h6>Reddit</h6>
                         <Row>
                             <Col s={12}><Input name='redditProg' type='checkbox' label='r/Programming' className='filled-in checkbox-orange'/></Col>
                             <Col s={12}><Input name='redditTech' type='checkbox' label='r/Technology' className='filled-in checkbox-orange'/></Col>
                             <Col s={12}><Input name='redditProgHum' type='checkbox' label='r/ProgrammingHumor' className='filled-in checkbox-orange'/></Col>
                             <Col s={12}><Input name='redditJS' type='checkbox' label='r/Javascript' className='filled-in checkbox-orange'/></Col>
-                        </Row>
-                        <h6>Medium Publications</h6>
-                        <Row>
-                            <Col s={12}><Input name='freecodecamp' type='checkbox' label='FreeCodeCamp.org' className='filled-in checkbox-orange'/></Col>
-                            <Col s={12}><Input name='hackernoon' type='checkbox' label='Hacker Noon' className='filled-in checkbox-orange'/></Col>
-                            <Col s={12}><Input name='codeburst' type='checkbox' label='codeburst' className='filled-in checkbox-orange'/></Col>
                         </Row>
                     </div>
                     <Button waves='light' type="submit" className="deep-orange lighten-1">Load Stories</Button>  
