@@ -80,10 +80,6 @@ class Main extends Component {
               allStories.push(story)
             })
             this.setState({
-              sources: {
-                  hackerNews: {
-                  stories
-              }},
               allStories
             })
           })
@@ -100,10 +96,6 @@ class Main extends Component {
             allStories.push(story)
           })
           this.setState({
-            sources: {
-                techCrunch: {
-                stories
-            }},
             allStories
         })
       })
@@ -111,119 +103,67 @@ class Main extends Component {
     }
     
       fetchRedditProg = async () => {
-        function fetchProgramming(){
-          return axios.get('https://www.reddit.com/r/programming/hot.json?sort=new')
-        }
-    
-        function reduceResult(result, allStories){
-          const allPosts = result.data.data.children
-          const postData = [];
-          allPosts.map(post => {
-            post.data.source = "r/Programming"
-            postData.push(post.data)
-            allStories.push(post.data)
-          })
-          return {postData, allStories}
-        }
-    
-        axios.all([fetchProgramming()])
-        .then(axios.spread((progPosts) => {
+        axios.get('https://www.reddit.com/r/programming/hot.json?sort=new')
+        .then(posts => {
           const allStories = this.state.allStories
-          const redditProg = reduceResult(progPosts, allStories)
+            const allPosts = posts.data.data.children
+            allPosts.map(post => {
+                post.data.source = "r/Programming"
+                allStories.push(post.data)
+            })
           this.setState({
-              sources: {
-                redditProg: {
-                    stories: redditProg
-                },
-              }
+              allStories
           })
-        }))
+        })
         .catch(err => console.error(err))
       }
 
       fetchRedditProgHum = async () => {
-        function fetchProgrammerHumor(){
-          return axios.get('https://www.reddit.com/r/ProgrammerHumor/hot.json?sort=new')
-        }
-    
-        function reduceResult(result, allStories){
-          const allPosts = result.data.data.children
-          const postData = [];
-          allPosts.map(post => {
-            post.data.source = "r/ProgrammerHumor"
-            postData.push(post.data)
-            allStories.push(post.data)
-          })
-          return {postData, allStories}
-        }
-    
-        axios.all([fetchProgrammerHumor()])
-        .then(axios.spread((progHumPosts) => {
+        axios.get('https://www.reddit.com/r/ProgrammerHumor/hot.json?sort=new')
+        .then(posts => {
           const allStories = this.state.allStories
-          const redditProgHum = reduceResult(progHumPosts, allStories)
+            const allPosts = posts.data.data.children
+            allPosts.map(post => {
+                post.data.source = "r/ProgrammingHumor"
+                allStories.push(post.data)
+            })
           this.setState({
-              sources: {
-                redditProgHum: {
-                    stories: redditProgHum
-                }
-              }
+              allStories
           })
-        }))
+        })
         .catch(err => console.error(err))
       }
 
       fetchRedditJS = async () => {
         axios.get('https://www.reddit.com/r/Javascript/hot.json?sort=new')
-        .then(results => {
-            const allStories = this.state.allStories
-            const redditJS = reduceResult(results, allStories)
-            this.setState({
-                sources: {
-                    redditJS: {
-                        stories: redditJS
-                    }
-                },
+        .then(posts => {
+          const allStories = this.state.allStories
+            const allPosts = posts.data.data.children
+            allPosts.map(post => {
+                post.data.source = "r/Javascript"
+                allStories.push(post.data)
             })
+          this.setState({
+              allStories
+          })
         })
         .catch(err => console.error(err))
-
-        function reduceResult(result, allStories){
-          const allPosts = result.data.data.children
-          const postData = [];
-          allPosts.map(post => {
-            post.data.source = "r/Javascript"
-            postData.push(post.data)
-            allStories.push(post.data)
-          })
-          return {postData, allStories}
-        }
       }
 
       fetchRedditTech = async () => {
         axios.get('https://www.reddit.com/r/Technology/hot.json?sort=new')
-        .then(results => {
-            const allStories = this.state.allStories
-            const redditTech = reduceResult(results, allStories)
-            this.setState({
-                sources: {
-                    redditTech: {
-                        stories: redditTech
-                    }
-                },
+        .then(posts => {
+          const allStories = this.state.allStories
+            const allPosts = posts.data.data.children
+            allPosts.map(post => {
+                post.data.source = "r/Technology"
+                allStories.push(post.data)
             })
+          this.setState({
+              allStories
+          })
         })
         .catch(err => console.error(err))
-
-        function reduceResult(result, allStories){
-          const allPosts = result.data.data.children
-          const postData = [];
-            allPosts.map(post => {
-            post.data.source = "r/Technology"
-            postData.push(post.data)
-            allStories.push(post.data)
-          })
-          return {postData, allStories}
-        }
       }
 
       fetchMediumFCC = async () => {
