@@ -13,27 +13,36 @@ class Sources extends Component {
     submitSources = (e) => {
         e.preventDefault();
         const form = e.target.elements;
-        const hackernews = form.hackernews.checked;
-        const techCrunch = form.techCrunch.checked;
-        const redditProg = form.redditProg.checked;
-        const redditProgHum = form.redditProgHum.checked;
-        const redditJS = form.redditJS.checked;
-        const redditTech = form.redditTech.checked;
-        const freecodecamp = form.freecodecamp.checked;
-        const hackernoon = form.hackernoon.checked;
-        const codeburst = form.codeburst.checked;
+        const HackerNews = form.hackerNews.checked;
+        const TechCrunch = form.techCrunch.checked;
+        const RedditProg = form.redditProg.checked;
+        const RedditProgHum = form.redditProgHum.checked;
+        const RedditJS = form.redditJS.checked;
+        const RedditTech = form.redditTech.checked;
+        const FreeCodeCamp = form.freecodecamp.checked;
+        const HackerNoon = form.hackernoon.checked;
+        const Codeburst = form.codeburst.checked;
         const sources = {
-            hackerNews: hackernews,
-            techCrunch: techCrunch,
-            redditProg: redditProg,
-            redditProgHum: redditProgHum,
-            redditJS: redditJS,
-            redditTech: redditTech,
-            freeCodeCamp: freecodecamp,
-            hackerNoon: hackernoon,
-            codeBurst: codeburst
+            // hackerNews: hackernews,
+            // techCrunch: techCrunch,
+            // redditProg: redditProg,
+            // redditProgHum: redditProgHum,
+            // redditJS: redditJS,
+            // redditTech: redditTech,
+            // freeCodeCamp: freecodecamp,
+            // hackerNoon: hackernoon,
+            // codeBurst: codeburst
+            HackerNews,
+            TechCrunch,
+            RedditProg,
+            RedditProgHum,
+            RedditJS,
+            RedditTech,
+            FreeCodeCamp,
+            HackerNoon,
+            Codeburst
         }
-        const selected = hackernews || techCrunch || redditProg || redditProgHum || redditJS || redditTech || freecodecamp || hackernoon || codeburst
+        const selected = HackerNews || TechCrunch || RedditProg || RedditProgHum || RedditJS || RedditTech || FreeCodeCamp || HackerNoon || Codeburst
         if(!selected){
             alert("Please select at least one source.");
         } else this.setState({
@@ -59,7 +68,7 @@ class Sources extends Component {
                     <div className="source-list">
                         <h6>HackerNews</h6>
                         <Row className="source-row">
-                            <Col s={12}><Input name='hackernews' type='checkbox' label='HackerNews' className='filled-in checkbox-orange'/></Col>
+                            <Col s={12}><Input name='hackerNews' type='checkbox' label='HackerNews' className='filled-in checkbox-orange'/></Col>
                         </Row>
                         <h6>TechCrunch</h6>
                         <Row className="source-row">

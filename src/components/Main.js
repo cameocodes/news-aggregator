@@ -128,7 +128,7 @@ class Main extends Component {
         .catch(err => console.error(err))
       }
 
-      fetchMediumFCC = async () => {
+      fetchFreeCodeCamp = async () => {
           axios.get('https://api.rss2json.com/v1/api.json?rss_url=https://medium.freecodecamp.org/feed?truncated=true')
           .then(results => {
             const stories = results.data.items
@@ -148,7 +148,7 @@ class Main extends Component {
           .catch(err => console.error(err))
       }
 
-      fetchMediumHackerNoon = async () => {
+      fetchHackerNoon = async () => {
         axios.get('https://api.rss2json.com/v1/api.json?rss_url=https://hackernoon.com/feed?truncated=true')
         .then(results => {
           const stories = results.data.items
@@ -168,7 +168,7 @@ class Main extends Component {
         .catch(err => console.error(err))
     }
 
-    fetchMediumCodeBurst = async () => {
+    fetchCodeburst = async () => {
         axios.get('https://api.rss2json.com/v1/api.json?rss_url=https://codeburst.io/feed?truncated=true')
         .then(results => {
           const stories = results.data.items
@@ -189,38 +189,17 @@ class Main extends Component {
     }
     
     async componentDidMount(){
-        const { hackerNews, techCrunch, redditProg, redditProgHum, redditJS, redditTech, freeCodeCamp, hackerNoon, codeBurst } = this.props.location.state.sources
-        if(hackerNews){
-            this.fetchHackerNews();
-        }
-        if(techCrunch){
-            this.fetchTechCrunch();
-        }
-        if(redditProg){
-            this.fetchRedditProg();
-        }
-        if(redditProgHum){
-            this.fetchRedditProgHum();
-        }
-        if(redditJS){
-            this.fetchRedditJS();
-        }
-        if(redditTech){
-            this.fetchRedditTech();
-        }
-        if(freeCodeCamp){
-            this.fetchMediumFCC();
-        }
-        if(hackerNoon){
-            this.fetchMediumHackerNoon();
-        }
-        if(codeBurst){
-            this.fetchMediumCodeBurst();
-        }
+        const sources = this.props.location.state.sources
+        Object.keys(sources).map(source => {
+            if(sources[source]){
+                this[`fetch${source}`]();
+            }
+        })
     }
 
     render() {
         const allStories = this.state.allStories;
+        console.log(allStories)
 
         if(allStories.length === 0){
         return <div id="preload-text">
