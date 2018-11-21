@@ -6,45 +6,7 @@ import NewsList from './NewsList';
 
 class Main extends Component {
     state = {
-        allStories: [],
-        sources: {
-            hackerNews: {
-                source: false,
-                stories: null
-            },
-            techCrunch: {
-                source: false,
-                stories: null
-            },
-            redditProg: {
-                source: false,
-                stories: []
-            },
-            redditProgHum: {
-                source: false,
-                stories: []
-            },
-            redditJS: {
-                source: false,
-                stories: []
-            },
-            redditTech: {
-                source: false,
-                stories: []
-            },
-            freeCodeCamp: {
-                source: false,
-                stories: []
-            },
-            hackerNoon: {
-                source: false,
-                stories: []
-            },
-            codeBurst: {
-                source: false,
-                stories: []
-            }
-        }
+        allStories: []
       }
     
       fetchHackerNews = async () => {
@@ -229,97 +191,30 @@ class Main extends Component {
     async componentDidMount(){
         const { hackerNews, techCrunch, redditProg, redditProgHum, redditJS, redditTech, freeCodeCamp, hackerNoon, codeBurst } = this.props.location.state.sources
         if(hackerNews){
-            this.setState({
-                sources: {
-                    hackerNews: {
-                        source: true
-                    }
-                }
-            })
             this.fetchHackerNews();
         }
         if(techCrunch){
-            this.setState({
-                sources: {
-                    techCrunch: {
-                        source: true
-                    }
-                }
-            })
             this.fetchTechCrunch();
         }
         if(redditProg){
-            this.setState({
-                sources: {
-                    redditProg: {
-                        source: true
-                    }
-                }
-            })
             this.fetchRedditProg();
         }
         if(redditProgHum){
-            this.setState({
-                sources: {
-                    redditProgHum: {
-                        source: true
-                    }
-                }
-            })
             this.fetchRedditProgHum();
         }
         if(redditJS){
-            this.setState({
-                sources: {
-                    redditJS: {
-                        source: true
-                    }
-                }
-            })
             this.fetchRedditJS();
         }
-
         if(redditTech){
-            this.setState({
-                sources: {
-                    redditTech: {
-                        source: true
-                    }
-                }
-            })
             this.fetchRedditTech();
         }
-
         if(freeCodeCamp){
-            this.setState({
-                sources: {
-                    freeCodeCamp: {
-                        source: true
-                    }
-                }
-            })
             this.fetchMediumFCC();
         }
-
         if(hackerNoon){
-            this.setState({
-                sources: {
-                    hackerNoon: {
-                        source: true
-                    }
-                }
-            })
             this.fetchMediumHackerNoon();
         }
-
         if(codeBurst){
-            this.setState({
-                sources: {
-                    codeBurst: {
-                        source: true
-                    }
-                }
-            })
             this.fetchMediumCodeBurst();
         }
     }
