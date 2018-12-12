@@ -1,11 +1,6 @@
 import './App.css';
 import React, { Component } from 'react';
-
-import {
-  Route,
-  Switch,
-  BrowserRouter
-} from 'react-router-dom'
+import { Route, Switch, BrowserRouter } from 'react-router-dom'
 import Sources from './components/Sources';
 import Main from './components/Main';
 import Navigation from './components/Navigation';
@@ -18,9 +13,7 @@ class App extends Component {
         <div>
           <Navigation/>
             <Switch>
-            <Route exact path="/" render={()=>{
-                return <Sources/>
-            }}/>
+            <Route exact path="/" component={Sources}/>
             <Route path="/stories" component={Main}/>
             </Switch>
         </div>

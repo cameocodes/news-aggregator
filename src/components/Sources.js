@@ -23,15 +23,6 @@ class Sources extends Component {
         const HackerNoon = form.hackernoon.checked;
         const Codeburst = form.codeburst.checked;
         const sources = {
-            // hackerNews: hackernews,
-            // techCrunch: techCrunch,
-            // redditProg: redditProg,
-            // redditProgHum: redditProgHum,
-            // redditJS: redditJS,
-            // redditTech: redditTech,
-            // freeCodeCamp: freecodecamp,
-            // hackerNoon: hackernoon,
-            // codeBurst: codeburst
             HackerNews,
             TechCrunch,
             RedditProg,
@@ -46,11 +37,9 @@ class Sources extends Component {
         if(!selected){
             alert("Please select at least one source.");
         } else this.setState({
-                sources,
-                redirect: true
-            })
-        
-
+            sources,
+            redirect: true
+        })
     }
 
     render() {
@@ -90,7 +79,6 @@ class Sources extends Component {
                     </div>
                     <Button waves='light' type="submit" className="deep-orange lighten-1">Load Stories</Button>  
                 </form>
-                
             </div>
         )
     }
