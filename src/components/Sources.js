@@ -22,6 +22,8 @@ class Sources extends Component {
         const FreeCodeCamp = form.freecodecamp.checked;
         const HackerNoon = form.hackernoon.checked;
         const Codeburst = form.codeburst.checked;
+        const WiredSecurity = form.wiredSecurity.checked;
+        const WiredHeadlines = form.wiredHeadlines.checked;
         const sources = {
             HackerNews,
             TechCrunch,
@@ -31,9 +33,11 @@ class Sources extends Component {
             RedditTech,
             FreeCodeCamp,
             HackerNoon,
-            Codeburst
+            Codeburst,
+            WiredSecurity,
+            WiredHeadlines,
         }
-        const selected = HackerNews || TechCrunch || RedditProg || RedditProgHum || RedditJS || RedditTech || FreeCodeCamp || HackerNoon || Codeburst
+        const selected = HackerNews || TechCrunch || RedditProg || RedditProgHum || RedditJS || RedditTech || FreeCodeCamp || HackerNoon || Codeburst || WiredSecurity || WiredHeadlines 
         if(!selected){
             alert("Please select at least one source.");
         } else this.setState({
@@ -75,6 +79,11 @@ class Sources extends Component {
                             <Col s={12}><Input name='redditTech' type='checkbox' label='r/Technology' className='filled-in checkbox-orange'/></Col>
                             <Col s={12}><Input name='redditProgHum' type='checkbox' label='r/ProgrammingHumor' className='filled-in checkbox-orange'/></Col>
                             <Col s={12}><Input name='redditJS' type='checkbox' label='r/Javascript' className='filled-in checkbox-orange'/></Col>
+                        </Row>
+                        <h6>Security</h6>
+                        <Row>
+                            <Col s={12}><Input name='wiredSecurity' type='checkbox' label='Wired - Security' className='filled-in checkbox-orange'/></Col>
+                            <Col s={12}><Input name='wiredHeadlines' type='checkbox' label='Wired - Headlines' className='filled-in checkbox-orange'/></Col>
                         </Row>
                     </div>
                     <Button waves='light' type="submit" className="deep-orange lighten-1">Load Stories</Button>  

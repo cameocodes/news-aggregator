@@ -1,13 +1,40 @@
 import React, {Component} from 'react';
 import { Preloader } from 'react-materialize';
 import axios from 'axios';
+import Parser from 'rss-parser'
+
 import NewsList from './NewsList';
 
 class Main extends Component {
   state = {
-      allStories: []
+      allStories: [], 
   }
+
+  rssParser = new Parser();
   
+
+  fetchWiredSecurity = async () => {
+    const jsonFeed = await this.rssParser.parseURL('https://www.wired.com/feed/category/security/latest/rss')
+    const allStories = this.state.allStories
+    const allPosts = jsonFeed.items
+    allPosts.map(post => {
+        post.source = "Wired - Security"
+        allStories.push(post)
+    })
+    this.setState({allStories})
+  }
+
+  fetchWiredHeadlines = async () => {
+    const jsonFeed = await this.rssParser.parseURL('https://www.wired.com/feed/rss')
+    const allStories = this.state.allStories
+    const allPosts = jsonFeed.items
+    allPosts.map(post => {
+        post.source = "Wired - Headlines"
+        allStories.push(post)
+    })
+    this.setState({allStories})
+  }
+
   fetchHackerNews = async () => {
     function fetchStoryIDs(){
       return axios.get('https://hacker-news.firebaseio.com/v0/topstories.json')
